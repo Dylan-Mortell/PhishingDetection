@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing Check</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        #phishingDetection {
+            padding: 15px 40px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #phishingDetection:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .phishing {
+            color: red;
+        }
+
+        .safe {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Check for Phishing</h2>
+    <button id="phishingDetection">Check Current URL for Phishing</button>
+    <div id="result"></div>
+
+    <!-- Link the external JavaScript file -->
+    <script src="popup.js"></script>
+
+</body>
+</html>

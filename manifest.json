@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "PhishingDetection",
+  "version": "1.0",
+  "description": "Phishing Detection using my own training model",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+  "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "host_permissions": [
+    "http://localhost/*"
+  ]
+}
