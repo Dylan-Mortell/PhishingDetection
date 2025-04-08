@@ -39,15 +39,27 @@
         .safe {
             color: green;
         }
+
+        #urlInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
 
     <h2>Check for Phishing</h2>
-    <button id="phishingDetection">Check Current URL for Phishing</button>
+
+    <!-- Search bar for entering URL -->
+    <input type="text" id="urlInput" placeholder="Enter URL to check" />
+
+    <button id="phishingDetection">Check URL for Phishing</button>
+
     <div id="result"></div>
 
-    <!-- Link the external JavaScript file -->
+    
     <script src="popup.js"></script>
 
 </body>
