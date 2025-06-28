@@ -5,8 +5,7 @@
   "description": "Phishing Detection using my own training model",
   "permissions": [
     "activeTab",
-    "storage",
-    "scripting"
+    "storage"
   ],
   "host_permissions": [
     "http://localhost/*",

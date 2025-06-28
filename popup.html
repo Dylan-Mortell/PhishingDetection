@@ -56,6 +56,15 @@
         .safe {
             color: green;
         }
+
+        #modelSelect {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        font-size: 16px;
+        box-sizing: border-box;
+        }
+
     </style>
 </head>
 <body>
@@ -63,6 +72,11 @@
     <h2>Check for Phishing</h2>
 
     <input type="text" id="urlInput" placeholder="Enter URL to check" />
+
+    <select id="modelSelect">
+     <option value="bert">PhilBERT(BERT - Phishing)</option>
+    <option value="rf">Random Forest</option>
+    </select>
 
     <button id="phishingDetection">Check URL for Phishing</button>
 

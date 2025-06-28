@@ -1,30 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var checkButton = document.getElementById('phishingDetection');
+    var checkButton = document.getElementById('phishingDetection');  
     var resultElement = document.getElementById('result');
-    var urlInput = document.getElementById('urlInput'); // Get the search bar element
 
     checkButton.addEventListener('click', function () {
-        // Get URL from the search bar or the current active tab
-        var url = urlInput.value.trim(); // Get value from search bar
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        var url = tabs[0].url;
+        var model = document.getElementById('modelSelect').value;  
+        var data = { url: url, model: model };
 
-        if (!url) {
-            // If the search bar is empty, use the current active tab's URL
-            chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-                url = tabs[0].url; // Get the active tab's URL
-                checkPhishing(url);  // Check phishing for the active tab's URL
-            });
-        } else {
-            // If the search bar has a URL, check phishing for that URL
-            checkPhishing(url);
-        }
-    });
-
-    // Function to check phishing by sending the URL to the backend
-    function checkPhishing(url) {
-        var data = { url: url };
-
-        // Sending the URL to the server for phishing check
-        fetch('http://localhost:5000/predict', {  
+        fetch('http://localhost:5000/predict', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -46,5 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
             resultElement.textContent = 'Error checking the site.';
             resultElement.className = '';
         });
-    }
+    });
+});
 });
