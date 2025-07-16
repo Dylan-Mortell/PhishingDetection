@@ -18,23 +18,27 @@
             text-align: center;
         }
 
-        #urlInput {
+        #urlInput, #modelSelect, #phishingDetection {
             width: 100%;
-            padding: 10px;
             margin-bottom: 10px;
             font-size: 16px;
             box-sizing: border-box;
         }
 
+        #urlInput {
+            padding: 10px;
+        }
+
+        #modelSelect {
+            padding: 10px;
+        }
+
         #phishingDetection {
             padding: 12px;
-            font-size: 16px;
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
-            width: 100%;
-            box-sizing: border-box;
         }
 
         #phishingDetection:hover {
@@ -42,7 +46,7 @@
         }
 
         #result {
-            margin-top: 20px;
+            margin-top: 10px;
             font-size: 16px;
             font-weight: bold;
             word-wrap: break-word;
@@ -57,14 +61,37 @@
             color: green;
         }
 
-        #modelSelect {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        font-size: 16px;
-        box-sizing: border-box;
+        /* Chat Styles */
+        textarea#chatPrompt {
+            width: 100%;
+            height: 60px;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-top: 15px;
+            font-size: 14px;
         }
 
+        #chatSend {
+            margin-top: 5px;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #chatSend:hover {
+            background-color: #0056b3;
+        }
+
+        #chatResponse {
+            margin-top: 10px;
+            font-size: 14px;
+            font-style: italic;
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body>
@@ -74,15 +101,20 @@
     <input type="text" id="urlInput" placeholder="Enter URL to check" />
 
     <select id="modelSelect">
-     <option value="bert">PhilBERT(BERT - Phishing)</option>
-    <option value="rf">Random Forest</option>
+        <option value="bert">PhilBERT (BERT - Phishing)</option>
+        <option value="rf">Random Forest</option>
     </select>
 
     <button id="phishingDetection">Check URL for Phishing</button>
-
     <div id="result"></div>
 
-    <script src="popup.js"></script>
+    <hr>
 
+    <h3>Ask ChatGPT</h3>
+    <textarea id="chatPrompt" placeholder="Ask a question about phishing or this site..."></textarea>
+    <button id="chatSend">Ask ChatGPT</button>
+    <div id="chatResponse"></div>
+
+    <script src="popup.js"></script>
 </body>
 </html>
