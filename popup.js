@@ -64,31 +64,34 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  function sendPredictionRequest(url, model) {
-    const labelInput = prompt("Enter ground truth label for testing (phishing/safe):");
-    const data = { url: url, model: model, label: labelInput };
+function sendPredictionRequest(url, model) {
+  const data = { url: url, model: model };
 
-    fetch('http://localhost:5000/predict', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+  fetch('http://localhost:5000/predict', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+    .then(response => response.json())
+    .then(result => {
+      if (
+        result.prediction === 'phishing' ||
+        result.prediction === 'phishing_url' ||
+        result.prediction === 'phishing_url_alt'
+      ) {
+        resultElement.textContent = 'Warning: This site could be dangerous!';
+        resultElement.className = 'phishing';
+      } else {
+        resultElement.textContent = 'This site seems safe.';
+        resultElement.className = 'safe';
+      }
     })
-      .then(response => response.json())
-      .then(result => {
-       if (result.prediction === 'phishing' || result.prediction === 'phishing_url' || result.prediction === 'phishing_url_alt') {
-  resultElement.textContent = 'Warning: This site could be dangerous!';
-  resultElement.className = 'phishing';
-} else {
-  resultElement.textContent = 'This site seems safe.';
-  resultElement.className = 'safe';
+    .catch(error => {
+      console.error('Error:', error);
+      resultElement.textContent = 'Error checking the site.';
+      resultElement.className = '';
+    });
 }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        resultElement.textContent = 'Error checking the site.';
-        resultElement.className = '';
-      });
-  }
 
   // ChatGPT-style prompt logic
   const chatButton = document.getElementById('chatSend');

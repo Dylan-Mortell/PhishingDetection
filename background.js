@@ -1,31 +1,23 @@
-// background.js 
-chrome.runtime.onInstalled.addListener(() => {
-    console.log('PhishingDetection extension installed');
-});
+checkButton.addEventListener('click', function () {
+  const resultElement = document.getElementById('result');
+  const model = document.getElementById('modelSelect').value;
 
+  // Get active tab's URL
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    if (tabs.length === 0 || !tabs[0].url) {
+      resultElement.textContent = 'Could not get the current tab URL.';
+      resultElement.className = '';
+      return;
+    }
 
-chrome.runtime.onInstalled.addListener(() => {
-  console.log('PhishingDetection extension installed');
-});
+    const url = tabs[0].url;
 
-// Listen for phishing check requests from popup or content scripts
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === 'checkPhishing') {
-    const urlToCheck = request.url;
-    fetch('http://127.0.0.1:5000/predict', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: urlToCheck })
-    })
-      .then(res => res.json())
-      .then(data => {
-        sendResponse({ prediction: data.bert_prediction || 'error' });
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        sendResponse({ prediction: 'error' });
-      });
+    if (!isValidUrl(url) || !hasValidDomain(url)) {
+      resultElement.textContent = 'This tab does not have a valid URL.';
+      resultElement.className = 'phishing';
+      return;
+    }
 
-    return true; // keep message channel open for async response
-  }
+    sendPredictionRequest(url, model);
+  });
 });
