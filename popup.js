@@ -93,6 +93,7 @@ function sendPredictionRequest(url, model) {
     });
 }
 
+
   // ChatGPT-style prompt logic
   const chatButton = document.getElementById('chatSend');
   const chatPrompt = document.getElementById('chatPrompt');
